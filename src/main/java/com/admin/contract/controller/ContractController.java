@@ -4,6 +4,8 @@ import com.admin.contract.dto.Contract;
 import com.admin.contract.service.ContractService;
 import com.admin.contract.service.UserService;
 import com.admin.contract.utils.ResponseBean;
+import com.admin.contract.utils.RundomUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +33,12 @@ public class ContractController {
     @PostMapping("/insert")
     public ResponseBean<Object> insert(@RequestBody(required = false)Contract contract) {
         try {
+            contract.setCreateTime(RundomUtils.getNowTime());
+            contract.setOverNamber(contract.getNumber());
+            if (contract.getNumber() != null && StringUtils.isNotEmpty(contract.getPrice())){
+                int price=Integer.parseInt(contract.getPrice());
+                contract.setAmount(String.valueOf(price * contract.getNumber()));
+            }
             int num=contractService.insertSelective(contract);
             if (num > 0 ){
                 return new ResponseBean<Object>(200,"新增成功");
