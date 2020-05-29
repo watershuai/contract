@@ -1,0 +1,22 @@
+server:
+  port: 8082
+
+spring:
+  datasource:
+    name: contract
+    url: jdbc:mysql://127.0.0.1:3306/contract?serverTimezone=GMT%2B8&useSSL=FALSE&useUnicode=true&characterEncoding=utf-8&com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+    #driver-class-name: com.mysql.jdbc.Driver
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  #type-aliases-package: com.example.demo
+
+
+logging:
+  config: classpath:logback.xml

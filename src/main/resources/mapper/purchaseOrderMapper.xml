@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.admin.contract.dao.purchaseOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.admin.contract.dto.purchaseOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="purchase_no" property="purchaseNo" jdbcType="VARCHAR" />
+    <result column="wz_name" property="wzName" jdbcType="VARCHAR" />
+    <result column="sku_name" property="skuName" jdbcType="VARCHAR" />
+    <result column="measurement" property="measurement" jdbcType="VARCHAR" />
+    <result column="contract_code" property="contractCode" jdbcType="VARCHAR" />
+    <result column="plan_number" property="planNumber" jdbcType="INTEGER" />
+    <result column="reality_number" property="realityNumber" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="quality_require" property="qualityRequire" jdbcType="VARCHAR" />
+    <result column="price_type" property="priceType" jdbcType="INTEGER" />
+    <result column="ask_department" property="askDepartment" jdbcType="VARCHAR" />
+    <result column="build_position" property="buildPosition" jdbcType="VARCHAR" />
+    <result column="build_company" property="buildCompany" jdbcType="VARCHAR" />
+    <result column="receiver_name" property="receiverName" jdbcType="VARCHAR" />
+    <result column="arrive_addrss" property="arriveAddrss" jdbcType="VARCHAR" />
+    <result column="purchase_type" property="purchaseType" jdbcType="VARCHAR" />
+    <result column="plan_time" property="planTime" jdbcType="VARCHAR" />
+    <result column="reality_time" property="realityTime" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+    <result column="remake" property="remake" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="reserve1" property="reserve1" jdbcType="VARCHAR" />
+    <result column="reserve2" property="reserve2" jdbcType="VARCHAR" />
+    <result column="reserve3" property="reserve3" jdbcType="VARCHAR" />
+    <result column="reserve4" property="reserve4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, purchase_no, wz_name, sku_name, measurement, contract_code, plan_number, reality_number, 
+    price, quality_require, price_type, ask_department, build_position, build_company, 
+    receiver_name, arrive_addrss, purchase_type, plan_time, reality_time, url, create_time, 
+    update_time, remake, status, reserve1, reserve2, reserve3, reserve4
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from purchase_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from purchase_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.admin.contract.dto.purchaseOrder" >
+    insert into purchase_order (id, purchase_no, wz_name, 
+      sku_name, measurement, contract_code, 
+      plan_number, reality_number, price, 
+      quality_require, price_type, ask_department, 
+      build_position, build_company, receiver_name, 
+      arrive_addrss, purchase_type, plan_time, 
+      reality_time, url, create_time, 
+      update_time, remake, status, 
+      reserve1, reserve2, reserve3, 
+      reserve4)
+    values (#{id,jdbcType=INTEGER}, #{purchaseNo,jdbcType=VARCHAR}, #{wzName,jdbcType=VARCHAR}, 
+      #{skuName,jdbcType=VARCHAR}, #{measurement,jdbcType=VARCHAR}, #{contractCode,jdbcType=VARCHAR}, 
+      #{planNumber,jdbcType=INTEGER}, #{realityNumber,jdbcType=INTEGER}, #{price,jdbcType=VARCHAR}, 
+      #{qualityRequire,jdbcType=VARCHAR}, #{priceType,jdbcType=INTEGER}, #{askDepartment,jdbcType=VARCHAR}, 
+      #{buildPosition,jdbcType=VARCHAR}, #{buildCompany,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR}, 
+      #{arriveAddrss,jdbcType=VARCHAR}, #{purchaseType,jdbcType=VARCHAR}, #{planTime,jdbcType=VARCHAR}, 
+      #{realityTime,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=VARCHAR}, #{remake,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{reserve1,jdbcType=VARCHAR}, #{reserve2,jdbcType=VARCHAR}, #{reserve3,jdbcType=VARCHAR}, 
+      #{reserve4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.admin.contract.dto.purchaseOrder" >
+    insert into purchase_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="purchaseNo != null" >
+        purchase_no,
+      </if>
+      <if test="wzName != null" >
+        wz_name,
+      </if>
+      <if test="skuName != null" >
+        sku_name,
+      </if>
+      <if test="measurement != null" >
+        measurement,
+      </if>
+      <if test="contractCode != null" >
+        contract_code,
+      </if>
+      <if test="planNumber != null" >
+        plan_number,
+      </if>
+      <if test="realityNumber != null" >
+        reality_number,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="qualityRequire != null" >
+        quality_require,
+      </if>
+      <if test="priceType != null" >
+        price_type,
+      </if>
+      <if test="askDepartment != null" >
+        ask_department,
+      </if>
+      <if test="buildPosition != null" >
+        build_position,
+      </if>
+      <if test="buildCompany != null" >
+        build_company,
+      </if>
+      <if test="receiverName != null" >
+        receiver_name,
+      </if>
+      <if test="arriveAddrss != null" >
+        arrive_addrss,
+      </if>
+      <if test="purchaseType != null" >
+        purchase_type,
+      </if>
+      <if test="planTime != null" >
+        plan_time,
+      </if>
+      <if test="realityTime != null" >
+        reality_time,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remake != null" >
+        remake,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="reserve1 != null" >
+        reserve1,
+      </if>
+      <if test="reserve2 != null" >
+        reserve2,
+      </if>
+      <if test="reserve3 != null" >
+        reserve3,
+      </if>
+      <if test="reserve4 != null" >
+        reserve4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseNo != null" >
+        #{purchaseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="wzName != null" >
+        #{wzName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuName != null" >
+        #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="measurement != null" >
+        #{measurement,jdbcType=VARCHAR},
+      </if>
+      <if test="contractCode != null" >
+        #{contractCode,jdbcType=VARCHAR},
+      </if>
+      <if test="planNumber != null" >
+        #{planNumber,jdbcType=INTEGER},
+      </if>
+      <if test="realityNumber != null" >
+        #{realityNumber,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityRequire != null" >
+        #{qualityRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="priceType != null" >
+        #{priceType,jdbcType=INTEGER},
+      </if>
+      <if test="askDepartment != null" >
+        #{askDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="buildPosition != null" >
+        #{buildPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="buildCompany != null" >
+        #{buildCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null" >
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveAddrss != null" >
+        #{arriveAddrss,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseType != null" >
+        #{purchaseType,jdbcType=VARCHAR},
+      </if>
+      <if test="planTime != null" >
+        #{planTime,jdbcType=VARCHAR},
+      </if>
+      <if test="realityTime != null" >
+        #{realityTime,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="remake != null" >
+        #{remake,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="reserve1 != null" >
+        #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null" >
+        #{reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve3 != null" >
+        #{reserve3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve4 != null" >
+        #{reserve4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.admin.contract.dto.purchaseOrder" >
+    update purchase_order
+    <set >
+      <if test="purchaseNo != null" >
+        purchase_no = #{purchaseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="wzName != null" >
+        wz_name = #{wzName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuName != null" >
+        sku_name = #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="measurement != null" >
+        measurement = #{measurement,jdbcType=VARCHAR},
+      </if>
+      <if test="contractCode != null" >
+        contract_code = #{contractCode,jdbcType=VARCHAR},
+      </if>
+      <if test="planNumber != null" >
+        plan_number = #{planNumber,jdbcType=INTEGER},
+      </if>
+      <if test="realityNumber != null" >
+        reality_number = #{realityNumber,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityRequire != null" >
+        quality_require = #{qualityRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="priceType != null" >
+        price_type = #{priceType,jdbcType=INTEGER},
+      </if>
+      <if test="askDepartment != null" >
+        ask_department = #{askDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="buildPosition != null" >
+        build_position = #{buildPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="buildCompany != null" >
+        build_company = #{buildCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null" >
+        receiver_name = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveAddrss != null" >
+        arrive_addrss = #{arriveAddrss,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseType != null" >
+        purchase_type = #{purchaseType,jdbcType=VARCHAR},
+      </if>
+      <if test="planTime != null" >
+        plan_time = #{planTime,jdbcType=VARCHAR},
+      </if>
+      <if test="realityTime != null" >
+        reality_time = #{realityTime,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="remake != null" >
+        remake = #{remake,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="reserve1 != null" >
+        reserve1 = #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null" >
+        reserve2 = #{reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve3 != null" >
+        reserve3 = #{reserve3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve4 != null" >
+        reserve4 = #{reserve4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.admin.contract.dto.purchaseOrder" >
+    update purchase_order
+    set purchase_no = #{purchaseNo,jdbcType=VARCHAR},
+      wz_name = #{wzName,jdbcType=VARCHAR},
+      sku_name = #{skuName,jdbcType=VARCHAR},
+      measurement = #{measurement,jdbcType=VARCHAR},
+      contract_code = #{contractCode,jdbcType=VARCHAR},
+      plan_number = #{planNumber,jdbcType=INTEGER},
+      reality_number = #{realityNumber,jdbcType=INTEGER},
+      price = #{price,jdbcType=VARCHAR},
+      quality_require = #{qualityRequire,jdbcType=VARCHAR},
+      price_type = #{priceType,jdbcType=INTEGER},
+      ask_department = #{askDepartment,jdbcType=VARCHAR},
+      build_position = #{buildPosition,jdbcType=VARCHAR},
+      build_company = #{buildCompany,jdbcType=VARCHAR},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
+      arrive_addrss = #{arriveAddrss,jdbcType=VARCHAR},
+      purchase_type = #{purchaseType,jdbcType=VARCHAR},
+      plan_time = #{planTime,jdbcType=VARCHAR},
+      reality_time = #{realityTime,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      remake = #{remake,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      reserve1 = #{reserve1,jdbcType=VARCHAR},
+      reserve2 = #{reserve2,jdbcType=VARCHAR},
+      reserve3 = #{reserve3,jdbcType=VARCHAR},
+      reserve4 = #{reserve4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>保存公共</title>
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="libs/jedate/css/jeDate-test.css">
+    <!-- jq -->
+    <script src="libs/jquery-1.12.4.min.js"></script>
+    <!-- 模板引擎 -->
+    <script src="libs/template-web.js"></script>
+    <script src="js/http.js"></script>
+    <script src="libs/jedate/js/jedate.js"></script>
+    <script src="libs/tinymce/tinymce.min.js"></script>
+    <script src="js/queryString.js"></script>
+    <script type="text/javascript" src="../js/transport_jquery.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="common_title">
+            新增公告
+        </div>
+        <div class="container-fluid common_con">
+
+                <div class="form-group">
+                    <label for="inputTitle" class="col-sm-2 control-label">文章标题：</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="title" class="form-control title" id="inputTitle" value="">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 100px">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button  class="btn btn-success btn-edit" onclick="saveNotice()">保存</button>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript">
+    function saveNotice(user_id) {
+        $.ajax({
+            type: "POST",
+            url: sendUrl + "saveNotice",
+            data: {content: $('#inputTitle').val()},
+            dataType: "json",
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", getCookie("token"));
+            },
+            success: function (data) {
+                console.log(data);
+                if (data.state == 'success') {
+                    alert("新增成功");
+                    location.reload()
+                } else {
+                    alert(data.message)
+                }
+            }
+        });
+    }
+</script>
+</html>

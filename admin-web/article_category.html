@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>课程列表</title>
+    <link rel="stylesheet" href="./libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="./libs/jquery-1.12.4.min.js"></script>
+    <script src="./libs/bootstrap/js/bootstrap.min.js"></script>
+    <!-- 引入模板引擎js文件 -->
+    <script src="./libs/template-web.js"></script>
+    <script src="./js/article_category.js"></script>
+    <script type="text/javascript" src="../js/transport_jquery.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="common_title">
+            课程列表
+        </div>
+        <div class="container-fluid common_con">
+            <div class="row opt_btns">
+                <div class="col-xs-6">
+                    <!--<form class="form-inline">
+                        <select id="selCategory" name="" class="form-control input-sm">
+
+                        </select>
+                        <select id="selStatus" name="" class="form-control input-sm">
+                            <option value="">所有状态</option>
+                            <option value="草稿">草稿</option>
+                            <option value="已发布">已发布</option>
+                        </select>
+                        <button id="btnSearch" class="btn btn-default btn-sm">筛选</button>
+                    </form>-->
+                </div>
+                <!--<div class="col-xs-6">
+                    <a href="article_release.html" class="btn btn-success btn-sm pull-right" id="release_btn">发表文章</a>
+                </div>-->
+            </div>
+            <table class="table table-striped table-bordered table-hover mp20">
+                <thead>
+                <tr>
+                    <th>课程id</th>
+                    <th>课程名称</th>
+                    <th class="text-center">创建时间</th>
+                    <th class="text-center">课程简介</th>
+                    <th class="text-center" width="100">操作</th>
+                </tr>
+                </thead>
+                <tbody id="bodyList">
+
+                </tbody>
+            </table>
+            <div class="row text-center">
+                <ul class="pagination"></ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title"><span class="modal-title-select">编辑</span>分类</h4>
+            </div>
+            <div class="modal-body">
+                <form class="formbody">
+                  
+                    <div class="form-group">
+                        <input type="hidden" name="id" class="display" value="">
+                      <label for="id">课程id</label>
+                      <input type="text" name="name" class="form-control" id="id" >
+                    </div>
+                    <div class="form-group">
+                      <label for="name">课程名称</label>
+                      <input type="text" name="slug" class="form-control" id="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="res">课程描述</label>
+                        <input type="text" name="slug" class="form-control" id="res">
+                    </div>
+                  </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal" onclick="$('.formbody')[0].reset();$('.modal-title-select').text('新增')">取消</button>
+              <button type="button" class="btn btn-primary" onclick="updateCourse()">确定</button>
+            
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+      <script src="./js/http.js"></script>
+
+</body>
+<script type="text/javascript">
+    var pageSize = 36;
+    var pageNum = 1;
+    var total = 0;
+
+    $(function () {
+        $.ajax({
+            type: "POST",
+            url: sendUrl + "findCourseList",
+            data: {pageNum: pageNum, pageSize: pageSize},
+            dataType: "json",
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", getCookie("token"));
+            },
+            success: function (data) {
+                console.log(data);
+                total = data.total;
+                debugger;
+                var htm = '';
+                for (var i = 0; i < data.data.length; i++) {
+                    htm+='<tr>\n' +
+                        '            <td>'+data.data[i].id+'</td>\n' +
+                        '            <td>'+data.data[i].courseName+'</td>\n' +
+                        '            <td class="text-center">'+dateLong2String(data.data[i].createTime)+'</td>\n' +
+                        '            <td>'+data.data[i].courseDescribe+'</td>\n' +
+                        '            <td class="text-center caozuo" width="200">\n' +
+                        '                <a href="#" class="btn btn-success" id="xinzengfenlei" data-toggle="modal"\n' +
+                        '                data-target="#myModal"   onclick="bianji(' + data.data[i].id + ',' + data.data[i].courseName + ',' + data.data[i].courseDescribe + ')">编辑</a>\n' +
+                        '            </td>\n' +
+                        '        </tr>';
+                }
+                $('#bodyList').html(htm);
+            }
+        });
+
+    })
+    function reviewCourse(status,user_id) {
+        $.ajax({
+            type: "POST",
+            url: sendUrl + "reviewCourse",
+            data: {courseId: user_id,status: status},
+            dataType: "json",
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", getCookie("token"));
+            },
+            success: function (data) {
+                console.log(data);
+                if (data.state == 'success') {
+                    alert("课程审核成功")
+                } else {
+                    alert(data.message)
+                }
+            }
+        });
+    }
+
+    function updateCourse() {
+        $.ajax({
+            type: "POST",
+            url: sendUrl + "updateCourse",
+            data: {id: $('#id').val(),courseName: $('#name').val(),courseDescribe: $('#res').val()},
+            dataType: "json",
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", getCookie("token"));
+            },
+            success: function (data) {
+                console.log(data);
+                if (data.state == 'success') {
+                    alert("更新成功");
+                    location.reload()
+                } else {
+                    alert(data.message)
+                }
+            }
+        });
+    }
+    /*function bianji(id,name,res) {
+        $('#id').val(id);
+        $('#name').val(name);
+        $('#res').val(res);
+    }*/
+</script>
+</html>

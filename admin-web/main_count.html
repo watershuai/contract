@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图表统计</title>
+    <link rel="stylesheet" href="./libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="./libs/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="../js/transport_jquery.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row spannel_list">
+            <div class="col-sm-3 col-xs-6">
+                <div class="spannel">
+                    <em id="jigou">5</em><span>个</span>
+                    <b>总机构数</b>
+                </div>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+                <div class="spannel scolor01">
+                    <em id="user">20</em><span>个</span>
+                    <b>总用户数</b>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: sendUrl + "platformDataStatistics",
+            dataType: "json",
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", getCookie("token"));
+            },
+            success: function (data) {
+                $("#jigou").html(data.data.mechanismCount);
+                $("#user").html(data.data.userCount);
+            }
+        });
+
+    })
+
+</script>
+</html>
